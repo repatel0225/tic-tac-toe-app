@@ -1,5 +1,5 @@
 import React from 'react';
-import type { GameMode, GameStatus, Player } from '../types';
+import type { GameMode, GameStatus, Player } from '../types/game.types';
 import { RotateCcw, Undo2, Users, Bot } from 'lucide-react';
 
 interface ControlsProps {
@@ -24,14 +24,14 @@ export const Controls: React.FC<ControlsProps> = ({
   onReset,
 }) => {
   return (
-    <div className="flex flex-col gap-2.5">
-      <div className="flex p-1 bg-slate-900 border border-slate-800 rounded-xl">
+    <div className="flex flex-col gap-3">
+      <div className="flex p-1 bg-slate-900/90 border border-slate-800 rounded-xl">
         <button
           type="button"
           onClick={() => onModeChange('TWO_PLAYER')}
           className={`mode-tab ${mode === 'TWO_PLAYER' ? 'mode-tab-active' : 'mode-tab-inactive'}`}
         >
-          <Users className="w-3.5 h-3.5" />
+          <Users className="w-4 h-4" />
           <span>2 Player</span>
         </button>
         <button
@@ -39,16 +39,16 @@ export const Controls: React.FC<ControlsProps> = ({
           onClick={() => onModeChange('COMPUTER')}
           className={`mode-tab ${mode === 'COMPUTER' ? 'mode-tab-active' : 'mode-tab-inactive'}`}
         >
-          <Bot className="w-3.5 h-3.5" />
+          <Bot className="w-4 h-4" />
           <span>vs Computer</span>
         </button>
       </div>
 
-      <div className="card-panel text-center text-sm font-medium">
+      <div className="card-panel text-center text-base font-semibold py-3">
         {status === 'Won' ? (
-          <span className="text-emerald-400 font-bold">Player {winner} Won!</span>
+          <span className="text-emerald-400 font-bold text-lg">Player {winner} Won!</span>
         ) : status === 'Draw' ? (
-          <span className="text-slate-300 font-bold">Game Drawn!</span>
+          <span className="text-slate-200 font-bold text-lg">Game Drawn!</span>
         ) : (
           <span>
             Current Turn:{' '}
@@ -59,7 +59,7 @@ export const Controls: React.FC<ControlsProps> = ({
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-3">
         <button
           type="button"
           onClick={onUndo}

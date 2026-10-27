@@ -20,54 +20,56 @@ export const App: React.FC = () => {
 
   if (isLoading && !game) {
     return (
-      <div className="app-wrapper">
-        <p className="text-slate-400 animate-pulse text-sm">Loading...</p>
+      <div className="layout-screen">
+        <p className="loading-indicator">Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className="app-wrapper">
-      <div className="game-container">
-        <header className="text-center">
-          <h1 className="text-2xl font-black tracking-wider text-slate-100">
-            TIC TAC TOE
-          </h1>
+    <div className="layout-screen">
+      <div className="layout-container">
+        <header className="layout-header">
+          <h1 className="header-title">TIC TAC TOE</h1>
         </header>
 
         {errorMessage && (
-          <div className="p-2 text-xs text-center rounded-lg bg-rose-950/70 border border-rose-800 text-rose-300">
+          <div className="error-banner">
             {errorMessage}
           </div>
         )}
 
-        <Scoreboard
-          scoreboard={scoreboard}
-          onReset={onResetScoreboard}
-        />
-
         {game && (
-          <>
-            <Controls
-              mode={game.mode}
-              status={game.status}
-              winner={game.winner}
-              currentPlayer={game.currentPlayer}
-              moveCount={game.moves.length}
-              onModeChange={onModeChange}
-              onUndo={onUndo}
-              onReset={onResetBoard}
-            />
+          <main className="layout-body">
+            <section className="left-game-section">
+              <Board
+                board={game.board}
+                winningCells={game.winningCells}
+                disabled={game.status !== 'InProgress'}
+                onCellClick={onCellSelect}
+              />
+            </section>
 
-            <Board
-              board={game.board}
-              winningCells={game.winningCells}
-              disabled={game.status !== 'InProgress'}
-              onCellClick={onCellSelect}
-            />
+            <section className="right-panel-section">
+              <Scoreboard
+                scoreboard={scoreboard}
+                onReset={onResetScoreboard}
+              />
 
-            <MoveHistory moves={game.moves} />
-          </>
+              <Controls
+                mode={game.mode}
+                status={game.status}
+                winner={game.winner}
+                currentPlayer={game.currentPlayer}
+                moveCount={game.moves.length}
+                onModeChange={onModeChange}
+                onUndo={onUndo}
+                onReset={onResetBoard}
+              />
+
+              <MoveHistory moves={game.moves} />
+            </section>
+          </main>
         )}
       </div>
     </div>

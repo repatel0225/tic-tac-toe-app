@@ -1,6 +1,6 @@
 import React from 'react';
 import { Cell } from './Cell';
-import type { Player } from '../types';
+import type { Player } from '../types/game.types';
 
 interface BoardProps {
   board: (Player | null)[];
@@ -16,7 +16,7 @@ export const Board: React.FC<BoardProps> = ({
   onCellClick,
 }) => {
   return (
-    <div className="board-wrapper">
+    <div className="board-card">
       <div className="board-grid">
         {board.map((val, idx) => (
           <Cell
